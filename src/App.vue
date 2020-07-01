@@ -77,7 +77,7 @@ import axios from "axios";
 import { mask } from "vue-the-mask";
 
 const http = axios.create({
-  baseURL: "http://localhost:3001"
+  baseURL: "https://node-clientes.herokuapp.com"
 });
 
 export default {
@@ -115,9 +115,9 @@ export default {
 
       try {
         if (this.isAlter) {
-          await http.put(`/${this.customer.cpf}`, this.customer);
+          await http.put(`/customer/${this.customer.cpf}`, this.customer);
         } else {
-          await http.post(`/`, this.customer);
+          await http.post(`/customer`, this.customer);
         }
       } catch (error) {
         return alert(
@@ -144,7 +144,7 @@ export default {
     },
     async delete(customer) {
       try {
-        await http.delete(`/${customer.cpf}`);
+        await http.delete(`/customer/${customer.cpf}`);
         this.getAll();
       } catch (error) {
         alert(error);
@@ -152,7 +152,7 @@ export default {
     },
     async getAll() {
       try {
-        const response = await http.get("/");
+        const response = await http.get("/customer");
         this.customers = response.data;
       } catch (error) {
         alert(error);
